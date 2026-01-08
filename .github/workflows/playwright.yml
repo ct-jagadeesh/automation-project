@@ -31,4 +31,4 @@ jobs:
           python -m tests.test_login_datadriven
           python -m tests.test_api_ui_hybrid
           python -m tests.api_first.test_users_api
-          python -m tests.api_first.test_users_api_ui_contracts
+          python -m tests.api_first.test_users_api_ui_contract
