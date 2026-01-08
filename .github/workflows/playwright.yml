@@ -29,4 +29,4 @@ jobs:
         run: |
           python -m tests.test_login
           python -m tests.test_login_datadriven
-          python -m tests.test_generated_from_the_internet_herokuapp_com
+          python -m tests.test_api_ui_hybrid
