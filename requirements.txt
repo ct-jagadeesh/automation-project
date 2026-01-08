@@ -3,3 +3,4 @@ pytest
 requests
 pandas
 openpyxl
+jsonschema

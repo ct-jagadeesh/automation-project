@@ -1,0 +1,11 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Playwright artifacts (optional)
+playwright-report/
+screenshots/
+
+# OS files
+.DS_Store
+Thumbs.db
