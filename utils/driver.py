@@ -2,9 +2,11 @@ import os
 from playwright.sync_api import sync_playwright
 
 def start_browser(headless=None):
-    # Force headless in CI, allow headed locally
-    if headless is None:
-        headless = os.getenv("CI", "false").lower() == "true"
+    # ALWAYS headless in CI
+    if os.getenv("CI") == "true":
+        headless = True
+    elif headless is None:
+        headless = False  # visible locally
 
     pw = sync_playwright().start()
     browser = pw.chromium.launch(headless=headless)

@@ -19,7 +19,8 @@ def test_api_ui_consistency():
         raise
 
     # 2) Open page with Playwright and get visible text
-    pw, browser, page = start_browser(headless=False)
+    pw, browser, page = start_browser()
+
     try:
         page.goto(PAGE_URL, timeout=30000)
         page.wait_for_load_state("networkidle", timeout=15000)
