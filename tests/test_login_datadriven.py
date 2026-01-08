@@ -21,7 +21,7 @@ def run_login_test(record, page):
         print(f"[PASS] Login Failed as expected for {username}")
 
 def test_datadriven():
-    pw, browser, page = start_browser(headless=False)
+    pw, browser, page = start_browser()
 
     try:
         print("\nRunning JSON dataset...")

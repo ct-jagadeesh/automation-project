@@ -3,7 +3,7 @@ from pages.login_page import LoginPage
 from utils.ai_helper import analyze_failure
 
 def test_login():
-    pw, browser, page = start_browser(headless=False)
+    pw, browser, page = start_browser()
 
     try:
         login = LoginPage(page)
