@@ -32,3 +32,15 @@ jobs:
           python -m tests.test_api_ui_hybrid
           python -m tests.api_first.test_users_api
           python -m tests.api_first.test_users_api_ui_contract
+- name: Release Quality Gate
+  if: success()
+  run: |
+    python utils/release_gate.py
+- name: Upload Release Artifact
+  if: success()
+  uses: actions/upload-artifact@v4
+  with:
+    name: release-status
+    path: release_ready.txt
+
+
