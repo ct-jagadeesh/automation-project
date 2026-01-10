@@ -1,6 +1,8 @@
 from utils.driver import start_browser, close_browser
 from pages.login_page import LoginPage
-from utils.ai_helper import analyze_failure
+from utils.ai_reporter import analyze_failure
+from utils.bug_reporter import write_bug_report
+
 
 def test_login():
     pw, browser, page = start_browser()
@@ -8,20 +10,27 @@ def test_login():
     try:
         login = LoginPage(page)
         login.goto()
-        login.login("tomsmith", "SuperSecretPassword!")   # intentionally wrong to see failure AI report
-        
-        assert login.is_login_successful()
 
+        # Use correct credentials for normal runs
+        login.login("tomsmith", "SuperSecretPassword!")
+
+        assert login.is_login_successful()
         print("[PASS] Login Test Passed!")
 
     except Exception as e:
         print("[FAIL] Login Test Failed:", e)
+
+        # 1️⃣ AI FAILURE ANALYSIS (NEW – Step 2)
+        analyze_failure(e)
+
+        # 2️⃣ Screenshot
         ss_path = "screenshots/login_failure.png"
         page.screenshot(path=ss_path)
 
+        # 3️⃣ HTML snippet
         html_snippet = page.content()[:3000]
-        # write bug report
-        from utils.bug_reporter import write_bug_report
+
+        # 4️⃣ Bug report
         report_path = write_bug_report(
             test_name="Login Test",
             error_message=str(e),
@@ -34,10 +43,12 @@ def test_login():
                 "Click Login"
             ]
         )
+
         print("Bug report saved:", report_path)
 
-        # call AI analysis (already done inside write_bug_report)
+        # Important: re-raise so CI fails correctly
         raise
+
     finally:
         close_browser(pw, browser)
 
