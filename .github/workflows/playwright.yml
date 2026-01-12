@@ -34,6 +34,8 @@ jobs:
           python -m tests.api_first.test_users_api_ui_contract
 
       - name: Release Quality Gate
+        env:
+            PYTHONPATH: .
         if: success()
         run: |
           python utils/release_gate.py
